@@ -3,6 +3,7 @@ package com.stardust.autojs.core.ui.widget;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.stardust.autojs.core.ui.ViewExtras;
 import com.stardust.autojs.core.ui.inflater.DynamicLayoutInflater;
@@ -50,6 +51,15 @@ public class JsListView extends RecyclerView {
         mScriptRuntime = scriptRuntime;
         init();
     }
+
+    public void scrollToButtom() {
+        this.scrollToPosition(this.getAdapter().getItemCount() - 1);
+    }
+
+    public void findPos() {
+        Toast.makeText(getContext(),"findPos",Toast.LENGTH_LONG).show();
+    }
+
 
     protected void init() {
         setAdapter(new Adapter());

@@ -14,11 +14,14 @@ import android.media.projection.MediaProjectionManager;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
 import android.util.Log;
 import android.view.OrientationEventListener;
 
+import com.stardust.autojs.BuildConfig;
 import com.stardust.autojs.runtime.exception.ScriptException;
 import com.stardust.autojs.runtime.exception.ScriptInterruptedException;
 import com.stardust.lang.ThreadCompat;
@@ -33,8 +36,8 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ScreenCapturer {
 
     public static final int ORIENTATION_AUTO = Configuration.ORIENTATION_UNDEFINED;
-    public static final int ORIENTATION_LANDSCAPE = Configuration.ORIENTATION_LANDSCAPE ;
-    public static final int ORIENTATION_PORTRAIT = Configuration.ORIENTATION_PORTRAIT ;
+    public static final int ORIENTATION_LANDSCAPE = Configuration.ORIENTATION_LANDSCAPE;
+    public static final int ORIENTATION_PORTRAIT = Configuration.ORIENTATION_PORTRAIT;
 
 
     private static final String LOG_TAG = "ScreenCapturer";
@@ -75,7 +78,7 @@ public class ScreenCapturer {
                     mDetectedOrientation = orientation;
                     try {
                         refreshVirtualDisplay(orientation);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                         mException = e;
                     }
@@ -118,7 +121,11 @@ public class ScreenCapturer {
     }
 
     private void initVirtualDisplay(int width, int height, int screenDensity) {
-        mImageReader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 3);
+        if (BuildConfig.DEBUG) {
+            mImageReader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 3);
+        } else {
+            mImageReader = ImageReader.newInstance(width, height, PixelFormat.RGBX_8888, 3);
+        }
         mVirtualDisplay = mMediaProjection.createVirtualDisplay(LOG_TAG,
                 width, height, screenDensity, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                 mImageReader.getSurface(), null, null);

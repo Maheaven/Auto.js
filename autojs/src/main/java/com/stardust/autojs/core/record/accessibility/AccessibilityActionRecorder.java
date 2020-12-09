@@ -6,6 +6,8 @@ import android.view.accessibility.AccessibilityEvent;
 import com.stardust.autojs.core.record.Recorder;
 import com.stardust.view.accessibility.AccessibilityDelegate;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;

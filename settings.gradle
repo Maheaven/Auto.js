@@ -1,1 +1,3 @@
+include ':douyin'
+include ':douyin'
 include ':app', ':automator', ':common', ':autojs', ':inrt'

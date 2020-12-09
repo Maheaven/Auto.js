@@ -15,6 +15,8 @@ import com.stardust.auojs.inrt.autojs.AutoJs
 import com.stardust.auojs.inrt.autojs.GlobalKeyObserver
 import com.stardust.autojs.core.ui.inflater.ImageLoader
 import com.stardust.autojs.core.ui.inflater.util.Drawables
+import com.umeng.analytics.MobclickAgent
+import com.umeng.commonsdk.UMConfigure
 
 /**
  * Created by Stardust on 2017/7/1.
@@ -69,6 +71,21 @@ class App : Application() {
                         })
             }
         })
+
+        initUM()
+
+//        val arr = arrayOf(1, 2, 3)
+//        arr[10] = 3
     }
 
+    fun initUM() {
+        /**
+         * 注意: 即使您已经在AndroidManifest.xml中配置过appkey和channel值，也需要在App代码中调
+         * 用初始化接口（如需要使用AndroidManifest.xml中配置好的appkey和channel值，
+         * UMConfigure.init调用中appkey和channel参数请置为null）。
+         */
+        UMConfigure.init(this, "5faa588845b2b751a928821c", "1", UMConfigure.DEVICE_TYPE_PHONE, null)
+        // 选用AUTO页面采集模式
+        MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO)
+    }
 }

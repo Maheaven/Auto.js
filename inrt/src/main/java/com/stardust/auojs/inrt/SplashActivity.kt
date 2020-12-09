@@ -2,23 +2,22 @@ package com.stardust.auojs.inrt
 
 import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager.PERMISSION_DENIED
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.preference.PreferenceManager.getDefaultSharedPreferences
+import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.TextView
-import android.widget.Toast
-
+import com.stardust.app.GlobalAppContext
 import com.stardust.auojs.inrt.autojs.AutoJs
 import com.stardust.auojs.inrt.launch.GlobalProjectLauncher
-
-import java.util.ArrayList
-
-import android.content.pm.PackageManager.PERMISSION_DENIED
+import java.util.*
 
 /**
  * Created by Stardust on 2018/2/2.
@@ -29,6 +28,11 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
+
+        var pref = getDefaultSharedPreferences(GlobalAppContext.get())
+        pref.edit().putBoolean("key_stable_mode", true).apply()
+
         val slug = findViewById<TextView>(R.id.slug)
         slug.typeface = Typeface.createFromAsset(assets, "roboto_medium.ttf")
         if (!Pref.isFirstUsing) {

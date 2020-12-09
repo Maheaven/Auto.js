@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.stardust.app.AppOpsKt;
 import com.stardust.app.GlobalAppContext;
+import com.stardust.autojs.util.FloatingPermission;
 import com.stardust.notification.NotificationListenerService;
 
 import org.autojs.autojs.Pref;
@@ -144,7 +146,6 @@ public class DrawerFragment extends androidx.fragment.app.Fragment {
                     }
                 });
         EventBus.getDefault().register(this);
-
     }
 
     @AfterViews
@@ -239,13 +240,13 @@ public class DrawerFragment extends androidx.fragment.app.Fragment {
         }
         boolean enabled = AppOpsKt.isOpPermissionGranted(getContext(), AppOpsManager.OPSTR_GET_USAGE_STATS);
         boolean checked = holder.getSwitchCompat().isChecked();
-        if(checked && !enabled){
-            if(new NotAskAgainDialog.Builder(getContext(), "DrawerFragment.usage_stats")
+        if (checked && !enabled) {
+            if (new NotAskAgainDialog.Builder(getContext(), "DrawerFragment.usage_stats")
                     .title(R.string.text_usage_stats_permission)
                     .content(R.string.description_usage_stats_permission)
                     .positiveText(R.string.ok)
                     .dismissListener(dialog -> IntentUtil.requestAppUsagePermission(getContext()))
-                    .show() == null){
+                    .show() == null) {
                 IntentUtil.requestAppUsagePermission(getContext());
             }
         }

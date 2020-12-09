@@ -53,7 +53,7 @@ dependencies {
     api 'com.google.android.material:material:1.1.0-alpha01'
     api 'com.github.hyb1996:EnhancedFloaty:0.31'
     api 'com.makeramen:roundedimageview:2.3.0'
-    // OpenCv
+    // OpenCv 3.4.12
     api(name: 'opencv-3.4.3', ext: 'aar')
     // OkHttp
     api 'com.squareup.okhttp3:okhttp:3.10.0'
@@ -73,5 +73,6 @@ dependencies {
     api files('libs/rhino-1.7.7.2.jar')
     api project(path: ':common')
     api project(path: ':automator')
+    implementation "org.java-websocket:Java-WebSocket:1.5.1"
 }
 

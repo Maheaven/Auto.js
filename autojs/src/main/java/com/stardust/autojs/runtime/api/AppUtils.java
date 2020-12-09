@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -15,6 +17,8 @@ import com.stardust.autojs.annotation.ScriptInterface;
 import com.stardust.util.IntentUtil;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -95,6 +99,18 @@ public class AppUtils {
     @ScriptInterface
     public String getFileProviderAuthority() {
         return mFileProviderAuthority;
+    }
+
+    @ScriptInterface
+    public String getTargetVersionName(String packageName) {
+        PackageManager pckMan = mContext.getPackageManager();
+        List<PackageInfo> packageInfo = pckMan.getInstalledPackages(0);
+        for (PackageInfo pInfo : packageInfo) {
+            if (pInfo.packageName.equals(packageName)) {
+                return pInfo.versionName;
+            }
+        }
+        return null;
     }
 
     @Nullable

@@ -50,7 +50,7 @@ class AutoJs private constructor(application: Application) : com.stardust.autojs
             }
         }
         if (errorMessage != null) {
-            AccessibilityServiceTool.goToAccessibilitySetting()
+//            AccessibilityServiceTool.goToAccessibilitySetting()
             throw ScriptException(errorMessage)
         }
     }
@@ -72,7 +72,7 @@ class AutoJs private constructor(application: Application) : com.stardust.autojs
             }
         }
         if (errorMessage != null) {
-            AccessibilityServiceTool.goToAccessibilitySetting()
+//            AccessibilityServiceTool.goToAccessibilitySetting()
             if (!AccessibilityService.waitForEnabled(-1)) {
                 throw ScriptInterruptedException()
             }
