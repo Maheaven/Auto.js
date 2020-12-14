@@ -1,5 +1,8 @@
 package com.stardust.autojs.runtime.api;
 
+import android.accessibilityservice.AccessibilityServiceInfo;
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +14,9 @@ import android.net.Uri;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import android.provider.Settings;
 import android.util.Log;
+import android.view.accessibility.AccessibilityManager;
 
 import com.stardust.autojs.annotation.ScriptInterface;
 import com.stardust.util.IntentUtil;
@@ -152,5 +157,59 @@ public class AppUtils {
     public void setCurrentActivity(Activity currentActivity) {
         mCurrentActivity = new WeakReference<>(currentActivity);
         Log.d("App", "setCurrentActivity: " + currentActivity);
+    }
+
+    //开启无障碍服务  com.stardust.autojs.core.accessibility.AccessibilityService
+    @ScriptInterface
+    public void autoOpenAccessibilityService() {
+        Log.d("XXXXXX", "start!");
+        if (!isStartAccessibilityServiceEnable()) {
+            Log.d("XXXXXX", "没有权限，开始申请!");
+            Settings.Secure.putString(mContext.getContentResolver(),
+                    Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES,
+                    "com.stardust.autojs/AccessibilityService");
+            Settings.Secure.putInt(mContext.getContentResolver(),
+                    Settings.Secure.ACCESSIBILITY_ENABLED, 1);
+            Log.d("XXXXXX", "申请成功!");
+        } else {
+            Log.d("XXXXXX", "有权限，无需申请!");
+        }
+    }
+
+    /**
+     * 判断无障碍服务是否开启
+     *
+     * @return
+     */
+    private boolean isStartAccessibilityServiceEnable() {
+        AccessibilityManager accessibilityManager =
+                (AccessibilityManager)
+                        mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
+        assert accessibilityManager != null;
+        List<AccessibilityServiceInfo> accessibilityServices =
+                accessibilityManager.getEnabledAccessibilityServiceList(
+                        AccessibilityServiceInfo.FEEDBACK_ALL_MASK);
+        for (AccessibilityServiceInfo info : accessibilityServices) {
+            if (info.getId().contains(mContext.getPackageName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 获取google 账号
+     * @return
+     */
+    @ScriptInterface
+    public String getGoogleAccount() {
+        AccountManager accountManager = AccountManager.get(mContext);
+        Account[] accounts = accountManager.getAccounts();
+        for (Account account : accounts) {
+            if(account.type.equals("com.google")){
+                return account.name;
+            }
+        }
+        return "";
     }
 }
