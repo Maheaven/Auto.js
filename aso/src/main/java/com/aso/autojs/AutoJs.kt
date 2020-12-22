@@ -6,13 +6,14 @@ import android.content.Context
 import com.stardust.app.GlobalAppContext
 import com.aso.LogActivity
 import com.aso.Pref
-import com.flow.R
+import com.aso.R
 import com.aso.SettingsActivity
 import com.stardust.autojs.runtime.ScriptRuntime
 import com.stardust.autojs.runtime.api.AppUtils
 import com.stardust.autojs.runtime.exception.ScriptException
 import com.stardust.autojs.runtime.exception.ScriptInterruptedException
 import com.stardust.autojs.script.JavaScriptSource
+import com.stardust.autojs.util.AccessibilityServiceTool
 import com.stardust.view.accessibility.AccessibilityService
 import com.stardust.view.accessibility.AccessibilityServiceUtils
 
@@ -41,7 +42,7 @@ class AutoJs private constructor(application: Application) : com.stardust.autojs
             errorMessage = GlobalAppContext.getString(R.string.text_auto_operate_service_enabled_but_not_running)
         } else {
             if (Pref.shouldEnableAccessibilityServiceByRoot()) {
-                if (!AccessibilityServiceTool.enableAccessibilityServiceByRootAndWaitFor(application, 2000)) {
+                if (!AccessibilityServiceTool.enableAccessibilityServiceByRootAndWaitFor(2000)) {
                     errorMessage = GlobalAppContext.getString(R.string.text_enable_accessibility_service_by_root_timeout)
                 }
             } else {
@@ -63,7 +64,7 @@ class AutoJs private constructor(application: Application) : com.stardust.autojs
             errorMessage = GlobalAppContext.getString(R.string.text_auto_operate_service_enabled_but_not_running)
         } else {
             if (Pref.shouldEnableAccessibilityServiceByRoot()) {
-                if (!AccessibilityServiceTool.enableAccessibilityServiceByRootAndWaitFor(application, 2000)) {
+                if (!AccessibilityServiceTool.enableAccessibilityServiceByRootAndWaitFor(2000)) {
                     errorMessage = GlobalAppContext.getString(R.string.text_enable_accessibility_service_by_root_timeout)
                 }
             } else {

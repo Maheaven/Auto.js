@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
-import com.flow.BuildConfig
+import com.aso.BuildConfig
 
 import com.aso.LogActivity
 import com.aso.Pref

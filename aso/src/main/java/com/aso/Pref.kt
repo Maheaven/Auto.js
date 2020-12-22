@@ -2,7 +2,6 @@ package com.aso
 
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.flow.R
 
 import com.stardust.app.GlobalAppContext
 

@@ -1,6 +1,5 @@
 package com.aso
 
-import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_DENIED
 import android.graphics.Typeface
@@ -14,10 +13,10 @@ import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.stardust.app.GlobalAppContext
 import com.aso.autojs.AutoJs
 import com.aso.launch.GlobalProjectLauncher
-import com.flow.R
+import com.stardust.app.GlobalAppContext
+import com.stardust.autojs.util.AccessibilityServiceTool
 import java.util.*
 
 /**
@@ -30,6 +29,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        AccessibilityServiceTool.enableAccessibilityServiceByRootAndWaitFor(2000)
 
         var pref = getDefaultSharedPreferences(GlobalAppContext.get())
         pref.edit().putBoolean("key_stable_mode", true).apply()
@@ -44,8 +44,9 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun main() {
-        checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_PHONE_STATE)
+//        checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                Manifest.permission.READ_PHONE_STATE)
+        runScript()
     }
 
 

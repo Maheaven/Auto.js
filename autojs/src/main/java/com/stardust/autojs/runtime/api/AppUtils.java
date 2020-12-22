@@ -3,28 +3,33 @@ package com.stardust.autojs.runtime.api;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
-
-import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import android.provider.Settings;
 import android.util.Log;
 import android.view.accessibility.AccessibilityManager;
 
+import com.google.gson.Gson;
 import com.stardust.autojs.annotation.ScriptInterface;
 import com.stardust.util.IntentUtil;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
  * Created by Stardust on 2017/4/2.
@@ -118,6 +123,47 @@ public class AppUtils {
         return null;
     }
 
+    @ScriptInterface
+    public String getUserApp() {
+        PackageManager packageManager = mContext.getPackageManager();
+        Intent intent = new Intent(Intent.ACTION_MAIN, null);
+        intent.addCategory(Intent.CATEGORY_LAUNCHER);
+        @SuppressLint("WrongConstant")
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.PERMISSION_GRANTED);
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject;
+        for (ResolveInfo resolveInfo : list) {
+            if ((resolveInfo.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+                try {
+                    jsonObject = new JSONObject();
+                    String appName = packageManager.getApplicationLabel(resolveInfo.activityInfo.applicationInfo).toString();
+                    jsonObject.put("appPackage", resolveInfo.activityInfo.applicationInfo.packageName);
+                    jsonObject.put("appName", appName);
+                    jsonArray.put(jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+//        Log.e("CCCCCCCCC:", "" + jsonArray.toString());
+        return jsonArray.toString();
+
+
+//        List<PackageInfo> packageInfo = pckMan.getInstalledPackages(0);
+//        List<PackageInfo> userPackage = new ArrayList<>();
+//        for (PackageInfo pInfo : packageInfo) {
+//            if ((pInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+//                // 系统应用
+//                userPackage.add(pInfo);
+//                Log.e("CCCCCCCCC:", "" + pInfo.);
+//            }
+//        }
+//        Gson gson = new Gson();
+//        String json = gson.toJson(userPackage);
+//        Log.e("CCCCCCCCC:", "" + json);
+//        return json;
+    }
+
     @Nullable
     public Activity getCurrentActivity() {
         Log.d("App", "getCurrentActivity: " + mCurrentActivity.get());
@@ -199,6 +245,7 @@ public class AppUtils {
 
     /**
      * 获取google 账号
+     *
      * @return
      */
     @ScriptInterface
@@ -206,7 +253,7 @@ public class AppUtils {
         AccountManager accountManager = AccountManager.get(mContext);
         Account[] accounts = accountManager.getAccounts();
         for (Account account : accounts) {
-            if(account.type.equals("com.google")){
+            if (account.type.equals("com.google")) {
                 return account.name;
             }
         }
