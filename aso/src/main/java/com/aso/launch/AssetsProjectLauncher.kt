@@ -6,11 +6,11 @@ import android.content.Intent
 import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
-import com.aso.BuildConfig
 
 import com.aso.LogActivity
 import com.aso.Pref
 import com.aso.autojs.AutoJs
+import com.aso.BuildConfig
 import com.stardust.autojs.engine.encryption.ScriptEncryption
 import com.stardust.autojs.execution.ExecutionConfig
 import com.stardust.autojs.execution.ScriptExecution

@@ -1,2 +1,2 @@
 include ':douyin'
-include ':app', ':automator', ':common', ':autojs', ':inrt', ':aso'
+include ':app', ':automator', ':common', ':autojs', ':inrt', ':aso', ':deviceinfo'

@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.device_info.autojs.AutoJs
 import com.device_info.launch.GlobalProjectLauncher
 import com.stardust.app.GlobalAppContext
-import com.stardust.autojs.util.AccessibilityServiceTool
 import java.util.*
 
 /**
