@@ -5,6 +5,8 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -16,7 +18,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.accessibility.AccessibilityManager;
 
-import com.google.gson.Gson;
+import com.stardust.autojs.R;
 import com.stardust.autojs.annotation.ScriptInterface;
 import com.stardust.util.IntentUtil;
 
@@ -25,10 +27,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 /**
@@ -258,5 +260,60 @@ public class AppUtils {
             }
         }
         return "";
+    }
+
+    @ScriptInterface
+    public void addIconToStatusbar(boolean isSocketEnable) {
+        try {
+            NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            // 创建一个Notification并设置相关属性
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext);
+            int smallIcon = isSocketEnable ? R.drawable.socket_enable : R.drawable.socket_disenable;
+            builder.setAutoCancel(false)//通知设置不会自动显示
+                    .setShowWhen(false)//显示时间
+                    .setSmallIcon(smallIcon)//设置通知的小图标
+//                .setContentTitle("")
+                    .setContentText("Socket连接");//设置通知的内容
+            Notification notification = builder.build();
+            manager.notify(0, notification);// 显示通知
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteIconToStatusbar() {
+        try {
+            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @ScriptInterface
+    public void addGoogleToStatusbar(boolean isSocketEnable) {
+        try {
+            NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            // 创建一个Notification并设置相关属性
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext);
+            int smallIcon = isSocketEnable ? R.drawable.google_enable : R.drawable.google_disenable;
+            builder.setAutoCancel(false)//通知设置不会自动显示
+                    .setShowWhen(false)//显示时间
+                    .setSmallIcon(smallIcon);//设置通知的小图标
+//                .setContentTitle("")
+//                    .setContentText("");//设置通知的内容
+            Notification notification = builder.build();
+            manager.notify(1, notification);// 显示通知
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteGoogleToStatusbar() {
+        try {
+            NotificationManager notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
