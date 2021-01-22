@@ -8,6 +8,8 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/autojs/Auto.js.autojs.iml" filepath="$PROJECT_DIR$/.idea/modules/autojs/Auto.js.autojs.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/automator/Auto.js.automator.iml" filepath="$PROJECT_DIR$/.idea/modules/automator/Auto.js.automator.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/common/Auto.js.common.iml" filepath="$PROJECT_DIR$/.idea/modules/common/Auto.js.common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/device/Auto.js.device.iml" filepath="$PROJECT_DIR$/.idea/modules/device/Auto.js.device.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/deviceinfo/Auto.js.deviceinfo.iml" filepath="$PROJECT_DIR$/.idea/modules/deviceinfo/Auto.js.deviceinfo.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/douyin/Auto.js.douyin.iml" filepath="$PROJECT_DIR$/.idea/modules/douyin/Auto.js.douyin.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/inrt/Auto.js.inrt.iml" filepath="$PROJECT_DIR$/.idea/modules/inrt/Auto.js.inrt.iml" />
     </modules>

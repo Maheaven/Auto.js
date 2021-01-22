@@ -15,6 +15,8 @@
             <option value="$PROJECT_DIR$/autojs" />
             <option value="$PROJECT_DIR$/automator" />
             <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/device" />
+            <option value="$PROJECT_DIR$/deviceinfo" />
             <option value="$PROJECT_DIR$/douyin" />
             <option value="$PROJECT_DIR$/inrt" />
           </set>
